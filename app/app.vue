@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { description } from "../package.json";
+
 const colorMode = useColorMode();
 const color = computed(() => (colorMode.value === "dark" ? "#171717" : "white"));
 
@@ -7,7 +9,7 @@ useHead({
   htmlAttrs: { ...head.value.htmlAttrs },
   link: [{ rel: "icon", href: "/favicon.ico" }],
   meta: [{ key: "theme-color", name: "theme-color", content: color }],
-  titleTemplate: (title) => (title ? `${title} | Equinuxt` : "Event AI"),
+  titleTemplate: (title) => (title ? `${title} | ${description}` : description),
 });
 </script>
 
