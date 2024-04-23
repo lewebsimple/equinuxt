@@ -15,6 +15,7 @@
     "seed": "tsx prisma/server/seeds/_main.ts"
   },
   "dependencies": {
+    "@nuxtjs/i18n": "^8.3.0",
     "@prisma/client": "^5.13.0",
     "nuxt": "^3.11.2",
     "vue": "^3.4.24",
