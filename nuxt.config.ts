@@ -1,6 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  extends: ["./app", "./prisma"],
+  extends: ["./app", "./auth", "./prisma"],
   modules: ["@nuxtjs/i18n"],
   i18n: {
     baseUrl: process.env.NUXT_I18N_BASE_URL || "http://localhost:3000",

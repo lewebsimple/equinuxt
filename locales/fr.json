@@ -1,1 +1,7 @@
-{}
+{
+  "errors": {
+    "auth": {
+      "invalid_login": "Courriel ou mot de passe invalide."
+    }
+  }
+}
