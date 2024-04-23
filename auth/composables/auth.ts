@@ -2,11 +2,13 @@ import { UserRole } from "@prisma/client";
 import type { User } from "lucia";
 import * as z from "zod";
 
+// Login form schema
 export const loginFormSchema = z.object({
   email: z.string().email(),
   password: z.string(),
 });
-export type LoginForm = z.infer<typeof loginFormSchema>;
+export type LoginFormInput = z.input<typeof loginFormSchema>;
+export type LoginFormOutput = z.output<typeof loginFormSchema>;
 
 export function useAuth() {
   const localePath = useLocalePath();
@@ -19,7 +21,7 @@ export function useAuth() {
   const hasUserRole = (role: UserRole) => authUser.value && [role, UserRole.Administrator].includes(authUser.value.role);
 
   // Login helper
-  async function login(body: LoginForm) {
+  async function login(body: LoginFormOutput) {
     try {
       await $fetch("/api/auth/login", { method: "POST", body });
     } catch (error) {

@@ -1,8 +1,8 @@
-import { type LoginForm, loginFormSchema } from "~/auth/composables/auth";
+import { type LoginFormOutput, loginFormSchema } from "~/auth/composables/auth";
 
 export default defineEventHandler(async (event) => {
   const t = await useTranslation(event);
-  const { email, password } = loginFormSchema.parse(await readBody<LoginForm>(event));
+  const { email, password } = loginFormSchema.parse(await readBody<LoginFormOutput>(event));
 
   const existingUser = await prisma.user.findUnique({ where: { email } });
   if (!existingUser) {

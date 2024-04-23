@@ -11,7 +11,7 @@ const fields = [
   { type: "password", name: "password", label: $t("fields.password"), required: true },
 ];
 const { login } = useAuth();
-async function onSubmit(data: LoginForm) {
+async function onSubmit(data: LoginFormInput) {
   try {
     await login(data);
   } catch (error) {
