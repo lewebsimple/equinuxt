@@ -2,6 +2,6 @@
 
 <template>
   <div>
-    <h1>Equinuxt</h1>
+    <ULandingHero title="Equinuxt" />
   </div>
 </template>

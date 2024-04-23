@@ -3,5 +3,34 @@
     "auth": {
       "invalid_login": "Courriel ou mot de passe invalide."
     }
+  },
+  "fields": {
+    "email": "Courriel",
+    "password": "Mot de passe"
+  },
+  "forms": {
+    "auth": {
+      "login": {
+        "submit": "Se connecter"
+      },
+      "logout": {
+        "submit": "Se déconnecter"
+      }
+    }
+  },
+  "pages": {
+    "auth": {
+      "login": {
+        "description": "Veuillez vous identifier.",
+        "title": "Connexion"
+      },
+      "logout": {
+        "description": "Veuillez confirmer la déconnexion.",
+        "title": "Déconnexion"
+      }
+    }
+  },
+  "ui": {
+    "goBackHome": "Retourner à l'accueil"
   }
 }

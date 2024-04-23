@@ -1,14 +1,14 @@
 import { UserRole } from "@prisma/client";
 
-// import { authHashPassword } from "~/auth/server/utils/password";
-// import { authGenerateUserId } from "~/auth/server/utils/user-id";
+import { authHashPassword } from "~/auth/server/utils/password";
+import { authGenerateUserId } from "~/auth/server/utils/user-id";
+
 import type { SeedFn } from "./_main";
 
 export const seedAdminUser: SeedFn = async (prisma) => {
   const adminUserData = {
     email: process.env.SEED_ADMIN_EMAIL || "admin@example.com",
-    password: process.env.SEED_ADMIN_PASSWORD || "changeme",
-    // password: await authHashPassword(process.env.SEED_ADMIN_PASSWORD || "changeme"),
+    password: await authHashPassword(process.env.SEED_ADMIN_PASSWORD || "changeme"),
     role: UserRole.Administrator,
   };
   const adminUserProfileData = {
@@ -23,8 +23,7 @@ export const seedAdminUser: SeedFn = async (prisma) => {
     });
   } else {
     await prisma.user.create({
-      data: { id: adminUserData.email, ...adminUserData, profile: { create: adminUserProfileData } },
-      // data: { id: authGenerateUserId(), ...adminUserData, profile: { create: adminUserProfileData } },
+      data: { id: authGenerateUserId(), ...adminUserData, profile: { create: adminUserProfileData } },
     });
   }
   return adminUserData.email;

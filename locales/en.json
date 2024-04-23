@@ -3,5 +3,34 @@
     "auth": {
       "invalid_login": "Invalid email on password."
     }
+  },
+  "fields": {
+    "email": "Email",
+    "password": "Password"
+  },
+  "forms": {
+    "auth": {
+      "login": {
+        "submit": "Login"
+      },
+      "logout": {
+        "submit": "Logout"
+      }
+    }
+  },
+  "pages": {
+    "auth": {
+      "login": {
+        "description": "Please identify yourself.",
+        "title": "Login"
+      },
+      "logout": {
+        "description": "Please confirm logout.",
+        "title": "Logout"
+      }
+    }
+  },
+  "ui": {
+    "goBackHome": "Go back home"
   }
 }
