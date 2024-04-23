@@ -1,6 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  extends: ["./app", "./auth", "./graphql", "./prisma", "@nuxt/ui-pro"],
+  extends: ["./app", "./auth", "./bullmq", "./graphql", "./prisma", "@nuxt/ui-pro"],
   modules: ["@lewebsimple/nuxt-barrel", "@nuxt/ui", "@nuxtjs/i18n"],
   i18n: {
     baseUrl: process.env.NUXT_I18N_BASE_URL || "http://localhost:3000",
