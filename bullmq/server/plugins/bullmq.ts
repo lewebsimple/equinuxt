@@ -6,15 +6,23 @@ declare global {
     queue: Queue;
     events: QueueEvents;
     worker: Worker;
+    options?: {
+      purgeQueue?: boolean;
+    };
   };
 }
 
 export default defineNitroPlugin(async (nitroApp) => {
+  // Instantiate tasks queues / workers
   Function.prototype(tasks);
-  Object.entries(tasks).forEach(([name, { queue }]) => {
+
+  // Purge queues if needed
+  Object.entries(tasks).forEach(async ([name, { queue, options }]) => {
+    if (!options?.purgeQueue) return;
     logger.info(`Purging queue ${name}`);
-    queue.obliterate({ force: true });
+    await queue.obliterate({ force: true });
   });
+
   logger.success(`BullMQ ready (${Object.keys(tasks).length} task(s))`);
   nitroApp.hooks.hookOnce("close", async () => {
     await Promise.all(Object.values(tasks).map(({ worker }) => worker.close()));
