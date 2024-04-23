@@ -7,6 +7,7 @@
     "build": "nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
+    "lint": "eslint . --fix && stylelint . --fix",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare"
   },
@@ -14,6 +15,12 @@
     "nuxt": "^3.11.2",
     "vue": "^3.4.24",
     "vue-router": "^4.3.2"
+  },
+  "devDependencies": {
+    "@lewebsimple/eslint-config": "^0.9.6",
+    "@lewebsimple/stylelint-config": "^0.9.6",
+    "eslint": "^8",
+    "stylelint": "^16.3.1"
   },
   "packageManager": "pnpm@9.0.5"
 }

@@ -1,0 +1,7 @@
+{
+  "extends": "@lewebsimple/stylelint-config",
+  "ignoreFiles": [
+    "**/*",
+    "!**/*.{css,scss,vue}"
+  ]
+}
