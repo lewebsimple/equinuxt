@@ -1,4 +1,4 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  extends: ["./app"],
+  components: [{ path: "~/app/components", pathPrefix: false }],
 });
