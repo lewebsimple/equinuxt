@@ -30,6 +30,11 @@
     "admin": {
       "index": {
         "title": "Dashboard"
+      },
+      "users": {
+        "index": {
+          "title": "Users"
+        }
       }
     },
     "auth": {

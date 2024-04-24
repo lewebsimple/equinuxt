@@ -30,6 +30,11 @@
     "admin": {
       "index": {
         "title": "Tableau de bord"
+      },
+      "users": {
+        "index": {
+          "title": "Utilisateurs"
+        }
       }
     },
     "auth": {

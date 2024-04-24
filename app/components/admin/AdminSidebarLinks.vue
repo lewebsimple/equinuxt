@@ -1,4 +1,5 @@
 <script setup lang="ts">
+const { hasUserRole } = useAuth();
 const localePath = useLocalePath();
 const links = computed(() => [
   {
@@ -7,6 +8,16 @@ const links = computed(() => [
     icon: "i-heroicons-home",
     to: localePath("/"),
   },
+  ...(hasUserRole("Administrator")
+    ? [
+        {
+          id: "users",
+          label: $t("pages.admin.users.index.title"),
+          icon: "i-heroicons-user-group",
+          to: localePath("/admin/users"),
+        },
+      ]
+    : []),
 ]);
 </script>
 
