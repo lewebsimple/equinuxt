@@ -1,5 +1,8 @@
 {
   "components": {
+    "AppFooter": {
+      "allRightsReserved": "All rights reserved."
+    },
     "AppSidebarUserDropdown": {
       "loggedInAs": "Logged in as"
     }
