@@ -1,4 +1,9 @@
 {
+  "components": {
+    "AppSidebarUserDropdown": {
+      "loggedInAs": "Logged in as"
+    }
+  },
   "errors": {
     "auth": {
       "invalid_login": "Invalid email on password."
@@ -19,6 +24,11 @@
     }
   },
   "pages": {
+    "admin": {
+      "index": {
+        "title": "Dashboard"
+      }
+    },
     "auth": {
       "login": {
         "description": "Please identify yourself.",

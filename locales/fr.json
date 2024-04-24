@@ -1,4 +1,9 @@
 {
+  "components": {
+    "AppSidebarUserDropdown": {
+      "loggedInAs": "Connecté en tant que"
+    }
+  },
   "errors": {
     "auth": {
       "invalid_login": "Courriel ou mot de passe invalide."
@@ -19,6 +24,11 @@
     }
   },
   "pages": {
+    "admin": {
+      "index": {
+        "title": "Tableau de bord"
+      }
+    },
     "auth": {
       "login": {
         "description": "Veuillez vous identifier.",
