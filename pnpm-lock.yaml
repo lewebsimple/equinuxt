@@ -11,6 +11,9 @@ importers:
       '@lewebsimple/nuxt-barrel':
         specifier: ^0.0.3
         version: 0.0.3(eslint@8.57.0)(rollup@4.16.3)
+      '@lewebsimple/nuxt3-svg':
+        specifier: ^0.2.2
+        version: 0.2.2(rollup@4.16.3)
       '@lucia-auth/adapter-prisma':
         specifier: ^4.0.1
         version: 4.0.1(@prisma/client@5.13.0(prisma@5.13.0))(lucia@3.2.0)
@@ -1208,6 +1211,9 @@ packages:
 
   '@lewebsimple/nuxt-barrel@0.0.3':
     resolution: {integrity: sha512-G70ENDpFbAPJhkgkSCXj7rtPJECQ4RcYBlWpFFkX7iL1erSTz0MIcBebDoPNj3JRB5VyWR+cAu7womaIO9vz6Q==}
+
+  '@lewebsimple/nuxt3-svg@0.2.2':
+    resolution: {integrity: sha512-P3ORrTRmYm85GPVyHqtY5YEtaOUEA8LBIsow8IsQs2PYmqdeB+/aDnnBqCXMhsRdHOu4LNAH0pGOYEuCmbe7TA==}
 
   '@lewebsimple/stylelint-config@0.9.6':
     resolution: {integrity: sha512-61D2g/gqYHZYuom37cl8uTSSFxdWTPt3Aes9zimsMelbSvvJWXXaS1INQKmRbpAhDNQIkk2823CjAooCC4tbLA==}
@@ -6260,6 +6266,9 @@ packages:
     peerDependencies:
       vite: ^3.0.0-0 || ^4.0.0-0 || ^5.0.0-0
 
+  vite-svg-loader@4.0.0:
+    resolution: {integrity: sha512-0MMf1yzzSYlV4MGePsLVAOqXsbF5IVxbn4EEzqRnWxTQl8BJg/cfwIzfQNmNQxZp5XXwd4kyRKF1LytuHZTnqA==}
+
   vite@5.2.10:
     resolution: {integrity: sha512-PAzgUZbP7msvQvqdSD+ErD5qGnSFiGOoWmV5yAKUEI0kdhjbH6nMWVyZQC/hSc4aXwc0oJ9aEdIiF9Oje0JFCw==}
     engines: {node: ^18.0.0 || >=20.0.0}
@@ -7819,6 +7828,14 @@ snapshots:
       - eslint
       - eslint-import-resolver-node
       - eslint-import-resolver-webpack
+      - rollup
+      - supports-color
+
+  '@lewebsimple/nuxt3-svg@0.2.2(rollup@4.16.3)':
+    dependencies:
+      '@nuxt/kit': 3.11.2(rollup@4.16.3)
+      vite-svg-loader: 4.0.0
+    transitivePeerDependencies:
       - rollup
       - supports-color
 
@@ -14009,6 +14026,11 @@ snapshots:
       vite: 5.2.10(@types/node@20.12.7)(terser@5.30.4)
     transitivePeerDependencies:
       - supports-color
+
+  vite-svg-loader@4.0.0:
+    dependencies:
+      '@vue/compiler-sfc': 3.4.25
+      svgo: 3.2.0
 
   vite@5.2.10(@types/node@20.12.7)(terser@5.30.4):
     dependencies:

@@ -1,6 +1,7 @@
 <template>
-  <div class="h-screen flex items-center justify-center">
+  <div class="relative h-screen flex items-center justify-center">
     <div class="gradient" />
+    <AppLogo class="absolute top-4" />
     <slot />
   </div>
 </template>
