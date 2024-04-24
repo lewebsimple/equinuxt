@@ -6,7 +6,7 @@ const links = computed(() => [
     id: "dashboard",
     label: $t("pages.admin.index.title"),
     icon: "i-heroicons-home",
-    to: localePath("/"),
+    to: localePath("/admin"),
   },
   ...(hasUserRole("Administrator")
     ? [
