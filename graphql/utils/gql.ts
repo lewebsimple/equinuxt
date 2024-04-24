@@ -13,6 +13,8 @@ import type { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-
  * Therefore it is highly recommended to use the babel or swc plugin for production.
  */
 const documents = {
+    "\n  fragment User on User {\n    id\n    email\n    role\n    fullName\n    profile {\n      firstName\n      lastName\n    }\n  }\n": types.UserFragmentDoc,
+    "\n      query UserCurrent {\n        userCurrent {\n          ...User\n        }\n      }\n    ": types.UserCurrentDocument,
     "\n      mutation HealthcheckTrigger {\n        healthcheck\n      }\n    ": types.HealthcheckTriggerDocument,
     "\n        subscription HealthcheckListen {\n          healthcheck\n        }\n      ": types.HealthcheckListenDocument,
     "\n      query Version {\n        version\n      }\n    ": types.VersionDocument,
@@ -32,6 +34,14 @@ const documents = {
  */
 export function graphql(source: string): unknown;
 
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  fragment User on User {\n    id\n    email\n    role\n    fullName\n    profile {\n      firstName\n      lastName\n    }\n  }\n"): (typeof documents)["\n  fragment User on User {\n    id\n    email\n    role\n    fullName\n    profile {\n      firstName\n      lastName\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n      query UserCurrent {\n        userCurrent {\n          ...User\n        }\n      }\n    "): (typeof documents)["\n      query UserCurrent {\n        userCurrent {\n          ...User\n        }\n      }\n    "];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

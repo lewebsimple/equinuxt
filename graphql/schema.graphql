@@ -8,6 +8,7 @@ type Mutation {
 }
 
 type Query {
+  userCurrent: User
   version: String!
 }
 
@@ -21,3 +22,22 @@ type Subscription {
 }
 
 scalar Upload
+
+type User {
+  email: String!
+  fullName: String!
+  id: ID!
+  profile: UserProfile!
+  role: UserRoleEnum!
+}
+
+type UserProfile {
+  firstName: String!
+  id: ID!
+  lastName: String!
+}
+
+enum UserRoleEnum {
+  Administrator
+  Guest
+}
