@@ -14,7 +14,9 @@
   },
   "fields": {
     "email": "Courriel",
-    "password": "Mot de passe"
+    "fullName": "Nom complet",
+    "password": "Mot de passe",
+    "role": "Rôle"
   },
   "forms": {
     "auth": {

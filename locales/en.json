@@ -14,7 +14,9 @@
   },
   "fields": {
     "email": "Email",
-    "password": "Password"
+    "fullName": "Full name",
+    "password": "Password",
+    "role": "Role"
   },
   "forms": {
     "auth": {

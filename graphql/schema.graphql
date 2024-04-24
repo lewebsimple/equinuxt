@@ -7,8 +7,18 @@ type Mutation {
   healthcheck: String!
 }
 
+interface Pagination {
+  total: Int!
+}
+
+input PaginationInput {
+  skip: Int!
+  take: Int!
+}
+
 type Query {
   userCurrent: User
+  userFindMany(filters: UserFiltersInput!, pagination: PaginationInput!, sort: UserSortInput!): UserPaginated!
   version: String!
 }
 
@@ -31,6 +41,15 @@ type User {
   role: UserRoleEnum!
 }
 
+input UserFiltersInput {
+  role: UserRoleEnum
+}
+
+type UserPaginated implements Pagination {
+  total: Int!
+  users: [User!]!
+}
+
 type UserProfile {
   firstName: String!
   id: ID!
@@ -40,4 +59,15 @@ type UserProfile {
 enum UserRoleEnum {
   Administrator
   Guest
+}
+
+enum UserSortColumn {
+  email
+  fullName
+  role
+}
+
+input UserSortInput {
+  column: UserSortColumn!
+  direction: SortOrderEnum!
 }

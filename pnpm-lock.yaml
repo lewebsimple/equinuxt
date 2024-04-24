@@ -41,6 +41,9 @@ importers:
       '@pothos/plugin-scope-auth':
         specifier: ^3.22.0
         version: 3.22.0(@pothos/core@3.41.1(graphql@16.8.1))(graphql@16.8.1)
+      '@pothos/plugin-simple-objects':
+        specifier: ^3.7.0
+        version: 3.7.0(@pothos/core@3.41.1(graphql@16.8.1))(graphql@16.8.1)
       '@prisma/client':
         specifier: ^5.13.0
         version: 5.13.0(prisma@5.13.0)
@@ -1695,6 +1698,12 @@ packages:
 
   '@pothos/plugin-scope-auth@3.22.0':
     resolution: {integrity: sha512-iT+JT0uIvoVGuQeQ2Q/y+wwP27SQH+1Hs8Uz5rrtGOblsKGW0cRcJYuXMi5+XJFXOY3CPNMnv6aroetxZkEcEQ==}
+    peerDependencies:
+      '@pothos/core': '*'
+      graphql: '>=15.1.0'
+
+  '@pothos/plugin-simple-objects@3.7.0':
+    resolution: {integrity: sha512-CgZJLaHLt1Q30j+XCiWV6qVJcae1ksiUFdi8kz4sEsOhCNfdVwz64s8rx7SSqsdmPbjb68dJIDKpq2Qg9VZb8g==}
     peerDependencies:
       '@pothos/core': '*'
       graphql: '>=15.1.0'
@@ -8577,6 +8586,11 @@ snapshots:
       graphql: 16.8.1
 
   '@pothos/plugin-scope-auth@3.22.0(@pothos/core@3.41.1(graphql@16.8.1))(graphql@16.8.1)':
+    dependencies:
+      '@pothos/core': 3.41.1(graphql@16.8.1)
+      graphql: 16.8.1
+
+  '@pothos/plugin-simple-objects@3.7.0(@pothos/core@3.41.1(graphql@16.8.1))(graphql@16.8.1)':
     dependencies:
       '@pothos/core': 3.41.1(graphql@16.8.1)
       graphql: 16.8.1
