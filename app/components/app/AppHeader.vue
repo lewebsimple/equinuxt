@@ -9,7 +9,7 @@ const localePath = useLocalePath();
       <AppLogo />
     </template>
     <template #right>
-      <UButton v-if="isAuthenticated" :label="$t('pages.admin.index.title')" :to="localePath('/admin')" />
+      <UButton v-if="isAuthenticated" color="gray" :label="$t('pages.admin.index.title')" :to="localePath('/admin')" />
       <UButton v-else color="gray" icon="i-heroicons-arrow-right" trailing :label="$t('pages.auth.login.title')" :to="localePath('/auth/login')" />
     </template>
   </UHeader>

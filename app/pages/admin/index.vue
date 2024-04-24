@@ -1,5 +1,5 @@
 <script setup lang="ts">
-definePageMeta({ layout: "admin", middleware: "has-user-role", hasUserRole: "Administrator" });
+definePageMeta({ layout: "admin", middleware: "is-authenticated" });
 useHead({ title: $t("pages.admin.index.title") });
 </script>
 
