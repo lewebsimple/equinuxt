@@ -2,7 +2,7 @@
 import type { FormSubmitEvent } from "#ui/types";
 
 const props = defineProps<{ user?: UserFragment }>();
-const emit = defineEmits<{ success: []; dismiss: [] }>();
+const emit = defineEmits<{ close: [] }>();
 
 const { userFormSchema, userCreate, userUpdate } = useUserMutations();
 const roles = useUserRoles();
@@ -21,7 +21,7 @@ const state = reactive<UserFormOutput>({
 async function onSubmit(event: FormSubmitEvent<UserFormOutput>) {
   try {
     props.user ? await userUpdate(props.user.id, event.data) : await userCreate(event.data);
-    emit("success");
+    emit("close");
   } catch (error) {
     const message = error instanceof Error ? error.message : $t("errors.generic");
     formRef.value?.setErrors([{ path: "submit", message }]);
@@ -50,7 +50,7 @@ async function onSubmit(event: FormSubmitEvent<UserFormOutput>) {
     </UFormGroup>
     <UFormGroup name="submit" />
     <div class="flex justify-end items-center gap-x-1.5">
-      <UButton :label="$t('ui.cancel')" color="gray" variant="ghost" @click="emit('dismiss')" />
+      <UButton :label="$t('ui.cancel')" color="gray" variant="ghost" @click="emit('close')" />
       <UButton :label="user ? $t('ui.save') : $t('ui.create')" type="submit" />
     </div>
   </UForm>

@@ -18,6 +18,9 @@ const columns = [
     label: $t("fields.user.role"),
     sortable: true,
   },
+  {
+    key: "actions",
+  },
 ];
 const selected = ref<UserFragment[]>([]);
 const onSelect = onSelectById(selected);
@@ -32,7 +35,7 @@ function onRefetch() {
     <UDashboardPanel grow>
       <UDashboardNavbar :title="$t('pages.admin.users.index.title')" :badge="total">
         <template #right>
-          <AdminUsersDeleteButton :users="selected" @success="onRefetch" />
+          <AdminUsersDeleteButton :users="selected" @refetch="onRefetch" />
           <AdminUsersCreateButton />
         </template>
       </UDashboardNavbar>
@@ -47,6 +50,9 @@ function onRefetch() {
         </template>
         <template #role-data="{ row }">
           <UBadge color="gray" variant="soft" :label="$t(`enums.UserRole.${row.role}`)" />
+        </template>
+        <template #actions-data="{ row }">
+          <AdminUserActions :user="row" @refetch="onRefetch" />
         </template>
       </UTable>
       <UPagination v-if="showPagination" v-model="page" :page-count="pageCount" :total="total" />

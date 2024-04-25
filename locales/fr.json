@@ -12,6 +12,12 @@
       "loggedInAs": "Connecté en tant que"
     }
   },
+  "composables": {
+    "userDeleteMany": {
+      "description": "Cette action est irréversible. Êtes-vous certain de vouloir procéder?",
+      "title": "Supprimer l'utilisateur | Supprimer {count} utilisateurs"
+    }
+  },
   "enums": {
     "UserRole": {
       "Administrator": "Administrateur",
@@ -78,6 +84,7 @@
   },
   "ui": {
     "cancel": "Annuler",
+    "confirm": "Confirmer",
     "create": "Créer",
     "delete": "Supprimer",
     "goBackHome": "Retourner à l'accueil",

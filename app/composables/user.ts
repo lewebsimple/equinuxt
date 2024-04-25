@@ -1,6 +1,8 @@
 import { useMutation, useQuery } from "@urql/vue";
 import { z } from "zod";
 
+import { AdminConfirmModal } from "#components";
+
 // User fragment
 graphql(`
   fragment User on User {
@@ -91,6 +93,7 @@ export async function useUserFindMany() {
 // User mutations
 export function useUserMutations() {
   const { t } = useI18n();
+  const modal = useModal();
 
   // Create user
   const { executeMutation: executeUserCreate } = useMutation(
@@ -141,13 +144,26 @@ export function useUserMutations() {
     `),
   );
   async function userDeleteMany(userIds: string[]) {
-    // TODO: Display confirmation modal
-    const { data: result, error } = await executeUserDeleteMany({ userIds });
-    if (error) {
-      throw new Error(urqlErrorMessage(error));
-    }
-    if (!result?.userDeleteMany) throw new Error(t("errors.generic"));
-    return result.userDeleteMany;
+    return new Promise<number>((resolve) => {
+      modal.open(AdminConfirmModal, {
+        title: t("composables.userDeleteMany.title", { count: userIds.length }),
+        description: t("composables.userDeleteMany.description"),
+        variant: "danger",
+        onConfirm: async () => {
+          const { data: result, error } = await executeUserDeleteMany({ userIds });
+          if (error) {
+            throw new Error(urqlErrorMessage(error));
+          }
+          if (!result?.userDeleteMany) throw new Error(t("errors.generic"));
+          modal.close();
+          resolve(result.userDeleteMany);
+        },
+        onCancel: () => {
+          modal.close();
+          resolve(0);
+        },
+      });
+    });
   }
 
   return { userFormSchema, userCreate, userUpdate, userDeleteMany };

@@ -12,6 +12,12 @@
       "loggedInAs": "Logged in as"
     }
   },
+  "composables": {
+    "userDeleteMany": {
+      "description": "This action is irreversible. Are you sure you want to proceed ?",
+      "title": "Delete user | Delete {count} users"
+    }
+  },
   "enums": {
     "UserRole": {
       "Administrator": "Administrator",
@@ -78,6 +84,7 @@
   },
   "ui": {
     "cancel": "Cancel",
+    "confirm": "Confirm",
     "create": "Create",
     "delete": "Delete",
     "goBackHome": "Go back home",

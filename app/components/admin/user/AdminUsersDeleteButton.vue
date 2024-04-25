@@ -1,12 +1,12 @@
 <script setup lang="ts">
 const props = defineProps<{ users: UserFragment[] }>();
-const emit = defineEmits<{ success: [] }>();
+const emit = defineEmits<{ refetch: [] }>();
 
 const { userDeleteMany } = useUserMutations();
 
 async function onClick() {
   await userDeleteMany(props.users.map(({ id }) => id));
-  emit("success");
+  emit("refetch");
 }
 </script>
 
