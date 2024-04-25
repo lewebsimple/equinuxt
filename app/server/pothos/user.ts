@@ -1,5 +1,5 @@
 import { queryFromInfo } from "@pothos/plugin-prisma";
-import { type Prisma, UserRole } from "@prisma/client";
+import { Prisma, UserRole } from "@prisma/client";
 
 import { paginationInput, paginationInterface } from "~/graphql/server/pothos/pagination";
 import { sortOrderEnum } from "~/graphql/server/pothos/prisma";
@@ -152,8 +152,13 @@ export const userMutations = builder.mutationFields((t) => ({
     args: {
       data: t.arg({ type: userCreateInput, required: true }),
     },
-    resolve: async (query, _root, { data }, { prisma }) => {
-      return await prisma.user.create({ ...query, data: { ...data, id: authGenerateUserId(), password: await authHashPassword(data.password) } });
+    resolve: async (query, _root, { data }, { prisma, t }) => {
+      try {
+        return await prisma.user.create({ ...query, data: { ...data, id: authGenerateUserId(), password: await authHashPassword(data.password) } });
+      } catch (error) {
+        if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === "P2002") throw new Error(t("errors.user.alreadyExists"));
+        throw error;
+      }
     },
     authScopes: { hasUserRole: "Administrator" },
   }),
@@ -165,9 +170,14 @@ export const userMutations = builder.mutationFields((t) => ({
       userId: t.arg.string({ required: true }),
       data: t.arg({ type: userUpdateInput, required: true }),
     },
-    resolve: async (query, _root, { userId, data }, { prisma }) => {
+    resolve: async (query, _root, { userId, data }, { prisma, t }) => {
       if (data.password) data.password = await authHashPassword(<string>data.password);
-      return await prisma.user.update({ ...query, where: { id: userId }, data });
+      try {
+        return await prisma.user.update({ ...query, where: { id: userId }, data });
+      } catch (error) {
+        if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === "P2002") throw new Error(t("errors.user.alreadyExists"));
+        throw error;
+      }
     },
     authScopes: { hasUserRole: "Administrator" },
   }),
