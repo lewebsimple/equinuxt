@@ -79,7 +79,7 @@ export const userQueries = builder.queryFields((t) => ({
       return await prisma.user.findUnique({ ...query, where: { id: authUser.id } });
     },
   }),
-  // Find many users
+  // Find users
   userFindMany: t.field({
     type: builder.simpleObject("UserPaginated", {
       interfaces: [paginationInterface],
@@ -105,5 +105,82 @@ export const userQueries = builder.queryFields((t) => ({
         }),
       };
     },
+    authScopes: { hasUserRole: "Administrator" },
+  }),
+}));
+
+// UserProfile input
+export const userProfileInput = builder.inputType("UserProfileInput", {
+  fields: (t) => ({
+    firstName: t.string({ required: true }),
+    lastName: t.string({ required: true }),
+  }),
+});
+
+// User create input
+const userCreateInput = builder.prismaCreate("User", {
+  name: "UserCreateInput",
+  fields: (t) => ({
+    email: t.field({ type: "String", required: true }),
+    password: t.field({ type: "String", required: true }),
+    role: t.field({ type: userRoleEnum, required: true }),
+    profile: builder.prismaCreateRelation("User", "profile", {
+      fields: (t) => ({ create: userProfileInput }),
+    }),
+  }),
+});
+
+// User update input
+const userUpdateInput = builder.prismaUpdate("User", {
+  name: "UserUpdateInput",
+  fields: (t) => ({
+    email: t.field({ type: "String", required: false }),
+    password: t.field({ type: "String", required: false }),
+    role: t.field({ type: userRoleEnum, required: false }),
+    profile: builder.prismaUpdateRelation("User", "profile", {
+      fields: (t) => ({ update: userProfileInput }),
+    }),
+  }),
+});
+
+// User mutations
+export const userMutations = builder.mutationFields((t) => ({
+  // Create user
+  userCreate: t.prismaField({
+    type: "User",
+    nullable: true,
+    args: {
+      data: t.arg({ type: userCreateInput, required: true }),
+    },
+    resolve: async (query, _root, { data }, { prisma }) => {
+      return await prisma.user.create({ ...query, data: { ...data, id: authGenerateUserId(), password: await authHashPassword(data.password) } });
+    },
+    authScopes: { hasUserRole: "Administrator" },
+  }),
+  // Update user
+  userUpdate: t.prismaField({
+    type: "User",
+    nullable: true,
+    args: {
+      userId: t.arg.string({ required: true }),
+      data: t.arg({ type: userUpdateInput, required: true }),
+    },
+    resolve: async (query, _root, { userId, data }, { prisma }) => {
+      if (data.password) data.password = await authHashPassword(<string>data.password);
+      return await prisma.user.update({ ...query, where: { id: userId }, data });
+    },
+    authScopes: { hasUserRole: "Administrator" },
+  }),
+  // Delete users
+  userDeleteMany: t.field({
+    type: "Int",
+    args: {
+      userIds: t.arg.stringList({ required: true }),
+    },
+    resolve: async (_root, { userIds }, { prisma }) => {
+      const { count } = await prisma.userProfile.deleteMany({ where: { user: { id: { in: userIds } } } });
+      return count;
+    },
+    authScopes: { hasUserRole: "Administrator" },
   }),
 }));

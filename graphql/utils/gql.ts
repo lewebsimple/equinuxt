@@ -16,6 +16,9 @@ const documents = {
     "\n  fragment User on User {\n    id\n    email\n    role\n    fullName\n    profile {\n      firstName\n      lastName\n    }\n  }\n": types.UserFragmentDoc,
     "\n      query UserCurrent {\n        userCurrent {\n          ...User\n        }\n      }\n    ": types.UserCurrentDocument,
     "\n      query UserFindMany($filters: UserFiltersInput!, $sort: UserSortInput!, $pagination: PaginationInput!) {\n        userFindMany(filters: $filters, sort: $sort, pagination: $pagination) {\n          total\n          users {\n            ...User\n          }\n        }\n      }\n    ": types.UserFindManyDocument,
+    "\n      mutation UserCreate($data: UserCreateInput!) {\n        userCreate(data: $data) {\n          ...User\n        }\n      }\n    ": types.UserCreateDocument,
+    "\n      mutation UserUpdate($userId: String!, $data: UserUpdateInput!) {\n        userUpdate(userId: $userId, data: $data) {\n          ...User\n        }\n      }\n    ": types.UserUpdateDocument,
+    "\n      mutation UsersDeleteMany($userIds: [String!]!) {\n        userDeleteMany(userIds: $userIds)\n      }\n    ": types.UsersDeleteManyDocument,
     "\n      mutation HealthcheckTrigger {\n        healthcheck\n      }\n    ": types.HealthcheckTriggerDocument,
     "\n        subscription HealthcheckListen {\n          healthcheck\n        }\n      ": types.HealthcheckListenDocument,
     "\n      query Version {\n        version\n      }\n    ": types.VersionDocument,
@@ -47,6 +50,18 @@ export function graphql(source: "\n      query UserCurrent {\n        userCurren
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n      query UserFindMany($filters: UserFiltersInput!, $sort: UserSortInput!, $pagination: PaginationInput!) {\n        userFindMany(filters: $filters, sort: $sort, pagination: $pagination) {\n          total\n          users {\n            ...User\n          }\n        }\n      }\n    "): (typeof documents)["\n      query UserFindMany($filters: UserFiltersInput!, $sort: UserSortInput!, $pagination: PaginationInput!) {\n        userFindMany(filters: $filters, sort: $sort, pagination: $pagination) {\n          total\n          users {\n            ...User\n          }\n        }\n      }\n    "];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n      mutation UserCreate($data: UserCreateInput!) {\n        userCreate(data: $data) {\n          ...User\n        }\n      }\n    "): (typeof documents)["\n      mutation UserCreate($data: UserCreateInput!) {\n        userCreate(data: $data) {\n          ...User\n        }\n      }\n    "];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n      mutation UserUpdate($userId: String!, $data: UserUpdateInput!) {\n        userUpdate(userId: $userId, data: $data) {\n          ...User\n        }\n      }\n    "): (typeof documents)["\n      mutation UserUpdate($userId: String!, $data: UserUpdateInput!) {\n        userUpdate(userId: $userId, data: $data) {\n          ...User\n        }\n      }\n    "];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n      mutation UsersDeleteMany($userIds: [String!]!) {\n        userDeleteMany(userIds: $userIds)\n      }\n    "): (typeof documents)["\n      mutation UsersDeleteMany($userIds: [String!]!) {\n        userDeleteMany(userIds: $userIds)\n      }\n    "];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

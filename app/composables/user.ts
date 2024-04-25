@@ -1,4 +1,5 @@
-import { useQuery } from "@urql/vue";
+import { useMutation, useQuery } from "@urql/vue";
+import { z } from "zod";
 
 // User fragment
 graphql(`
@@ -13,6 +14,19 @@ graphql(`
     }
   }
 `);
+
+// User form schema
+const userFormSchema = z.object({
+  email: z.string().email().default(""),
+  password: z.string().min(1).default(""),
+  role: z.nativeEnum(UserRoleEnum).default(UserRoleEnum.Guest),
+  profile: z.object({
+    firstName: z.string().min(1).default(""),
+    lastName: z.string().min(1).default(""),
+  }),
+});
+export type UserFormInput = z.input<typeof userFormSchema>;
+export type UserFormOutput = z.output<typeof userFormSchema>;
 
 // User roles
 export function useUserRoles() {
@@ -71,4 +85,66 @@ export async function useUserFindMany() {
   const pageCount = computed<number>(() => pagination.value.take);
   const showPagination = computed<boolean>(() => total.value > pagination.value.take);
   return { filters, sort, users, fetching, total, page, pageCount, showPagination };
+}
+
+// User mutations
+export function useUserMutations() {
+  // Create user
+  const { executeMutation: executeUserCreate } = useMutation(
+    graphql(`
+      mutation UserCreate($data: UserCreateInput!) {
+        userCreate(data: $data) {
+          ...User
+        }
+      }
+    `),
+  );
+  async function userCreate(data: UserFormOutput) {
+    try {
+      const { profile, ...userData } = data;
+      return await executeUserCreate({ data: { ...userData, profile: { create: profile } } });
+    } catch (error) {
+      console.log((<any>error).message);
+      throw new Error("User with this email already exists");
+    }
+  }
+
+  // Update user
+  const { executeMutation: executeUserUpdate } = useMutation(
+    graphql(`
+      mutation UserUpdate($userId: String!, $data: UserUpdateInput!) {
+        userUpdate(userId: $userId, data: $data) {
+          ...User
+        }
+      }
+    `),
+  );
+  async function userUpdate(userId: string, data: UserFormOutput) {
+    try {
+      const { profile, ...userData } = data;
+      return await executeUserUpdate({ userId, data: { ...userData, profile: { update: profile } } });
+    } catch (error) {
+      console.log((<any>error).message);
+      throw new Error("User with this email already exists");
+    }
+  }
+
+  // Delete users
+  const { executeMutation: executeUserDeleteMany } = useMutation(
+    graphql(`
+      mutation UsersDeleteMany($userIds: [String!]!) {
+        userDeleteMany(userIds: $userIds)
+      }
+    `),
+  );
+  async function userDeleteMany(userIds: string[]) {
+    try {
+      return await executeUserDeleteMany({ userIds });
+    } catch (error) {
+      console.log((<any>error).message);
+      throw new Error("Cannot delete users");
+    }
+  }
+
+  return { userFormSchema, userCreate, userUpdate, userDeleteMany };
 }
