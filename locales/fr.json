@@ -22,10 +22,12 @@
     }
   },
   "fields": {
-    "email": "Courriel",
-    "fullName": "Nom complet",
-    "password": "Mot de passe",
-    "role": "Rôle"
+    "user": {
+      "email": "Courriel",
+      "fullName": "Nom complet",
+      "password": "Mot de passe",
+      "role": "Rôle"
+    }
   },
   "forms": {
     "auth": {

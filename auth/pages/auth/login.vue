@@ -7,8 +7,8 @@ useSeoMeta({ title: $t("pages.auth.login.title") });
 
 const refAuthForm = ref();
 const fields = [
-  { type: "email", name: "email", label: $t("fields.email"), required: true },
-  { type: "password", name: "password", label: $t("fields.password"), required: true },
+  { type: "email", name: "email", label: $t("fields.user.email"), required: true },
+  { type: "password", name: "password", label: $t("fields.user.password"), required: true },
 ];
 const { login } = useAuth();
 async function onSubmit(data: LoginFormInput) {

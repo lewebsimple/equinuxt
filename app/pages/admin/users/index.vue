@@ -5,17 +5,17 @@ const { filters, sort, users, fetching, total, page, pageCount, showPagination }
 const columns = [
   {
     key: "fullName",
-    label: $t("fields.fullName"),
+    label: $t("fields.user.fullName"),
     sortable: true,
   },
   {
     key: "email",
-    label: $t("fields.email"),
+    label: $t("fields.user.email"),
     sortable: true,
   },
   {
     key: "role",
-    label: $t("fields.role"),
+    label: $t("fields.user.role"),
     sortable: true,
   },
 ];

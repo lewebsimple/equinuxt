@@ -22,10 +22,12 @@
     }
   },
   "fields": {
-    "email": "Email",
-    "fullName": "Full name",
-    "password": "Password",
-    "role": "Role"
+    "user": {
+      "email": "Email",
+      "fullName": "Full name",
+      "password": "Password",
+      "role": "Role"
+    }
   },
   "forms": {
     "auth": {
