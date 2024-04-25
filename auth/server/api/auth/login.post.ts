@@ -6,12 +6,12 @@ export default defineEventHandler(async (event) => {
 
   const existingUser = await prisma.user.findUnique({ where: { email } });
   if (!existingUser) {
-    throw createError({ message: t("errors.auth.invalid_login"), statusCode: 400 });
+    throw createError({ message: t("errors.auth.invalidLogin"), statusCode: 400 });
   }
 
   const validPassword = await authVerifyPassword(password, existingUser.password);
   if (!validPassword) {
-    throw createError({ message: t("errors.auth.invalid_login"), statusCode: 400 });
+    throw createError({ message: t("errors.auth.invalidLogin"), statusCode: 400 });
   }
 
   const session = await lucia.createSession(existingUser.id, {});

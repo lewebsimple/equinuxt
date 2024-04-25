@@ -27,7 +27,9 @@ const onSelect = onSelectById(selected);
   <UDashboardPage>
     <UDashboardPanel grow>
       <UDashboardNavbar :title="$t('pages.admin.users.index.title')" :badge="total">
-        <template #right> Actions </template>
+        <template #right>
+          <AdminUsersBulkActions :users="selected" />
+        </template>
       </UDashboardNavbar>
       <UDashboardToolbar>
         <template #left>
@@ -37,6 +39,9 @@ const onSelect = onSelectById(selected);
       <UTable v-model="selected" v-model:sort="sort" :columns="columns" :rows="users" :loading="fetching" sort-mode="manual" @select="onSelect">
         <template #fullName-data="{ row }">
           <span class="text-gray-900 dark:text-white font-medium">{{ row.fullName }}</span>
+        </template>
+        <template #role-data="{ row }">
+          <UBadge color="gray" variant="soft" :label="$t(`enums.UserRole.${row.role}`)" />
         </template>
       </UTable>
       <UPagination v-if="showPagination" v-model="page" :page-count="pageCount" :total="total" />

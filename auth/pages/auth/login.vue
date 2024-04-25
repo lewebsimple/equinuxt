@@ -15,7 +15,7 @@ async function onSubmit(data: LoginFormInput) {
   try {
     await login(data);
   } catch (error) {
-    const message = error instanceof Error ? error.message : $t("errors.auth.invalid_login");
+    const message = error instanceof Error ? error.message : $t("errors.generic");
     refAuthForm.value.formRef.setErrors([{ message, path: "password" }]);
   }
 }

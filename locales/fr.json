@@ -1,13 +1,15 @@
 {
   "components": {
+    "AdminUsersFilters": {
+      "role": {
+        "placeholder": "Filtrer par rôle"
+      }
+    },
     "AppFooter": {
       "allRightsReserved": "Tous droits réservés."
     },
     "AppSidebarUserDropdown": {
       "loggedInAs": "Connecté en tant que"
-    },
-    "UserRoleSelect": {
-      "placeholder": "Filtrer par rôle"
     }
   },
   "enums": {
@@ -18,7 +20,11 @@
   },
   "errors": {
     "auth": {
-      "invalid_login": "Courriel ou mot de passe invalide."
+      "invalidLogin": "Courriel ou mot de passe invalide."
+    },
+    "generic": "Une erreur est survenue. Veuillez ré-essayer plus tard.",
+    "user": {
+      "alreadyExists": "Cet utilisateur existe déjà."
     }
   },
   "fields": {
@@ -26,6 +32,10 @@
       "email": "Courriel",
       "fullName": "Nom complet",
       "password": "Mot de passe",
+      "profile": {
+        "firstName": "Prénom",
+        "lastName": "Nom"
+      },
       "role": "Rôle"
     }
   },
@@ -36,6 +46,11 @@
       },
       "logout": {
         "submit": "Se déconnecter"
+      }
+    },
+    "user": {
+      "create": {
+        "title": "Créer un utilisateur"
       }
     }
   },
@@ -62,6 +77,10 @@
     }
   },
   "ui": {
-    "goBackHome": "Retourner à l'accueil"
+    "cancel": "Annuler",
+    "create": "Créer",
+    "delete": "Supprimer",
+    "goBackHome": "Retourner à l'accueil",
+    "save": "Enregistrer"
   }
 }
