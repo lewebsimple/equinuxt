@@ -14,6 +14,21 @@ graphql(`
   }
 `);
 
+// User roles
+export function useUserRoles() {
+  const { t } = useI18n();
+  return [
+    {
+      value: UserRoleEnum.Guest,
+      label: t("enums.UserRole.Guest"),
+    },
+    {
+      value: UserRoleEnum.Administrator,
+      label: t("enums.UserRole.Administrator"),
+    },
+  ];
+}
+
 // Currently logged in user
 export async function useUserCurrent() {
   const { data } = await useQuery({
@@ -31,7 +46,7 @@ export async function useUserCurrent() {
 // Find many users
 export async function useUserFindMany() {
   const filters = ref<UserFiltersInput>({ role: null });
-  const sort = ref<UserSortInput>({ column: UserSortColumn.Email, direction: SortOrderEnum.Asc });
+  const sort = ref<UserSortInput>({ column: UserSortColumn.FullName, direction: SortOrderEnum.Asc });
   const pagination = ref<PaginationInput>({ skip: 0, take: 10 });
   watch([filters, sort], () => (pagination.value.skip = 0));
   const { data } = await useQuery<UserFindManyQuery>({

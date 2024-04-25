@@ -5,6 +5,15 @@
     },
     "AppSidebarUserDropdown": {
       "loggedInAs": "Connecté en tant que"
+    },
+    "UserRoleSelect": {
+      "placeholder": "Filtrer par rôle"
+    }
+  },
+  "enums": {
+    "UserRole": {
+      "Administrator": "Administrateur",
+      "Guest": "Invité"
     }
   },
   "errors": {

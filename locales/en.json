@@ -5,6 +5,15 @@
     },
     "AppSidebarUserDropdown": {
       "loggedInAs": "Logged in as"
+    },
+    "UserRoleSelect": {
+      "placeholder": "Filter by role"
+    }
+  },
+  "enums": {
+    "UserRole": {
+      "Administrator": "Administrator",
+      "Guest": "Guest"
     }
   },
   "errors": {
