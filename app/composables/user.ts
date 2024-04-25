@@ -49,7 +49,7 @@ export async function useUserFindMany() {
   const sort = ref<UserSortInput>({ column: UserSortColumn.FullName, direction: SortOrderEnum.Asc });
   const pagination = ref<PaginationInput>({ skip: 0, take: 10 });
   watch([filters, sort], () => (pagination.value.skip = 0));
-  const { data } = await useQuery<UserFindManyQuery>({
+  const { data, fetching } = await useQuery<UserFindManyQuery>({
     query: graphql(`
       query UserFindMany($filters: UserFiltersInput!, $sort: UserSortInput!, $pagination: PaginationInput!) {
         userFindMany(filters: $filters, sort: $sort, pagination: $pagination) {
@@ -70,5 +70,5 @@ export async function useUserFindMany() {
   });
   const pageCount = computed<number>(() => pagination.value.take);
   const showPagination = computed<boolean>(() => total.value > pagination.value.take);
-  return { filters, sort, users, total, page, pageCount, showPagination };
+  return { filters, sort, users, fetching, total, page, pageCount, showPagination };
 }

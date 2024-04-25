@@ -1,7 +1,7 @@
 <script setup lang="ts">
 definePageMeta({ layout: "admin", middleware: "has-user-role", hasUserRole: "Administrator" });
 useHead({ title: $t("pages.admin.users.index.title") });
-const { filters, sort, users, total, page, pageCount, showPagination } = await useUserFindMany();
+const { filters, sort, users, fetching, total, page, pageCount, showPagination } = await useUserFindMany();
 const columns = [
   {
     key: "fullName",
@@ -34,7 +34,11 @@ const onSelect = onSelectById(selected);
           <AdminUsersFilters v-model="filters" />
         </template>
       </UDashboardToolbar>
-      <UTable v-model="selected" v-model:sort="sort" :columns="columns" :rows="users" sort-mode="manual" @select="onSelect" />
+      <UTable v-model="selected" v-model:sort="sort" :columns="columns" :rows="users" :loading="fetching" sort-mode="manual" @select="onSelect">
+        <template #fullName-data="{ row }">
+          <span class="text-gray-900 dark:text-white font-medium">{{ row.fullName }}</span>
+        </template>
+      </UTable>
       <UPagination v-if="showPagination" v-model="page" :page-count="pageCount" :total="total" />
     </UDashboardPanel>
   </UDashboardPage>
