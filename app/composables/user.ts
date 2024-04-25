@@ -100,13 +100,12 @@ export function useUserMutations() {
     `),
   );
   async function userCreate(data: UserFormOutput) {
-    try {
-      const { profile, ...userData } = data;
-      return await executeUserCreate({ data: { ...userData, profile: { create: profile } } });
-    } catch (error) {
-      console.log((<any>error).message);
-      throw new Error("User with this email already exists");
+    const { profile, ...userData } = data;
+    const result = await executeUserCreate({ data: { ...userData, profile: { create: profile } } });
+    if (result.error) {
+      throw new Error(urqlErrorMessage(result.error));
     }
+    return result;
   }
 
   // Update user
@@ -120,13 +119,12 @@ export function useUserMutations() {
     `),
   );
   async function userUpdate(userId: string, data: UserFormOutput) {
-    try {
-      const { profile, ...userData } = data;
-      return await executeUserUpdate({ userId, data: { ...userData, profile: { update: profile } } });
-    } catch (error) {
-      console.log((<any>error).message);
-      throw new Error("User with this email already exists");
+    const { profile, ...userData } = data;
+    const result = await executeUserUpdate({ userId, data: { ...userData, profile: { update: profile } } });
+    if (result.error) {
+      throw new Error(urqlErrorMessage(result.error));
     }
+    return result;
   }
 
   // Delete users
@@ -138,12 +136,11 @@ export function useUserMutations() {
     `),
   );
   async function userDeleteMany(userIds: string[]) {
-    try {
-      return await executeUserDeleteMany({ userIds });
-    } catch (error) {
-      console.log((<any>error).message);
-      throw new Error("Cannot delete users");
+    const result = await executeUserDeleteMany({ userIds });
+    if (result.error) {
+      throw new Error(urqlErrorMessage(result.error));
     }
+    return result;
   }
 
   return { userFormSchema, userCreate, userUpdate, userDeleteMany };
