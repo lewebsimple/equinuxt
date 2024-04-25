@@ -3,7 +3,7 @@ import { createYoga } from "graphql-yoga";
 export default defineEventHandler(async (event) => {
   const yoga = createYoga({
     schema,
-    context: getContext(event),
+    context: await getContext(event),
     graphqlEndpoint: "/api/graphql",
     graphiql: { subscriptionsProtocol: "WS" },
   });

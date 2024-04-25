@@ -1,9 +1,11 @@
 import { type H3Event } from "h3";
 
 // GraphQL Context
-export function getContext(event: H3Event) {
+export async function getContext(event: H3Event) {
   const { authSession, authUser } = event.context;
-  return { prisma, pubsub, authSession, authUser };
+  const t = await useTranslation(event);
+  return { prisma, pubsub, authSession, authUser, t };
 }
 
-export type Context = ReturnType<typeof getContext>;
+type PromiseType<T extends Promise<any>> = T extends Promise<infer U> ? U : never;
+export type Context = PromiseType<ReturnType<typeof getContext>>;
