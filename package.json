@@ -52,12 +52,12 @@
     "nano-staged": "^0.8.0",
     "prisma": "^5.13.0",
     "stylelint": "^16.4.0",
-    "tsx": "^4.7.2",
+    "tsx": "^4.7.3",
     "vite-plugin-graphql-codegen": "^3.3.6"
   },
   "nano-staged": {
     "*.{js,ts,vue}": "eslint --fix",
     "*.{css,scss,vue}": "stylelint --fix"
   },
-  "packageManager": "pnpm@9.0.5"
+  "packageManager": "pnpm@9.0.6"
 }
