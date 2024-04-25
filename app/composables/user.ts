@@ -63,7 +63,7 @@ export async function useUserFindMany() {
   const sort = ref<UserSortInput>({ column: UserSortColumn.FullName, direction: SortOrderEnum.Asc });
   const pagination = ref<PaginationInput>({ skip: 0, take: 10 });
   watch([filters, sort], () => (pagination.value.skip = 0));
-  const { data, fetching } = await useQuery<UserFindManyQuery>({
+  const { data, fetching, executeQuery } = await useQuery<UserFindManyQuery>({
     query: graphql(`
       query UserFindMany($filters: UserFiltersInput!, $sort: UserSortInput!, $pagination: PaginationInput!) {
         userFindMany(filters: $filters, sort: $sort, pagination: $pagination) {
@@ -77,6 +77,7 @@ export async function useUserFindMany() {
     variables: { filters, sort, pagination },
   });
   const users = computed<UserFragment[]>(() => data.value?.userFindMany.users || []);
+  const refetch = () => executeQuery({ requestPolicy: "network-only" });
   const total = computed<number>(() => data.value?.userFindMany.total || 0);
   const page = computed<number>({
     get: () => pagination.value.skip / pagination.value.take + 1,
@@ -84,11 +85,13 @@ export async function useUserFindMany() {
   });
   const pageCount = computed<number>(() => pagination.value.take);
   const showPagination = computed<boolean>(() => total.value > pagination.value.take);
-  return { filters, sort, users, fetching, total, page, pageCount, showPagination };
+  return { filters, sort, users, fetching, refetch, total, page, pageCount, showPagination };
 }
 
 // User mutations
 export function useUserMutations() {
+  const { t } = useI18n();
+
   // Create user
   const { executeMutation: executeUserCreate } = useMutation(
     graphql(`
@@ -101,11 +104,12 @@ export function useUserMutations() {
   );
   async function userCreate(data: UserFormOutput) {
     const { profile, ...userData } = data;
-    const result = await executeUserCreate({ data: { ...userData, profile: { create: profile } } });
-    if (result.error) {
-      throw new Error(urqlErrorMessage(result.error));
+    const { data: result, error } = await executeUserCreate({ data: { ...userData, profile: { create: profile } } });
+    if (error) {
+      throw new Error(urqlErrorMessage(error));
     }
-    return result;
+    if (!result?.userCreate) throw new Error(t("errors.generic"));
+    return result.userCreate;
   }
 
   // Update user
@@ -120,11 +124,12 @@ export function useUserMutations() {
   );
   async function userUpdate(userId: string, data: UserFormOutput) {
     const { profile, ...userData } = data;
-    const result = await executeUserUpdate({ userId, data: { ...userData, profile: { update: profile } } });
-    if (result.error) {
-      throw new Error(urqlErrorMessage(result.error));
+    const { data: result, error } = await executeUserUpdate({ userId, data: { ...userData, profile: { update: profile } } });
+    if (error) {
+      throw new Error(urqlErrorMessage(error));
     }
-    return result;
+    if (!result?.userUpdate) throw new Error(t("errors.generic"));
+    return result.userUpdate;
   }
 
   // Delete users
@@ -136,11 +141,13 @@ export function useUserMutations() {
     `),
   );
   async function userDeleteMany(userIds: string[]) {
-    const result = await executeUserDeleteMany({ userIds });
-    if (result.error) {
-      throw new Error(urqlErrorMessage(result.error));
+    // TODO: Display confirmation modal
+    const { data: result, error } = await executeUserDeleteMany({ userIds });
+    if (error) {
+      throw new Error(urqlErrorMessage(error));
     }
-    return result;
+    if (!result?.userDeleteMany) throw new Error(t("errors.generic"));
+    return result.userDeleteMany;
   }
 
   return { userFormSchema, userCreate, userUpdate, userDeleteMany };

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 definePageMeta({ layout: "admin", middleware: "has-user-role", hasUserRole: "Administrator" });
 useHead({ title: $t("pages.admin.users.index.title") });
-const { filters, sort, users, fetching, total, page, pageCount, showPagination } = await useUserFindMany();
+const { filters, sort, users, fetching, refetch, total, page, pageCount, showPagination } = await useUserFindMany();
 const columns = [
   {
     key: "fullName",
@@ -21,6 +21,10 @@ const columns = [
 ];
 const selected = ref<UserFragment[]>([]);
 const onSelect = onSelectById(selected);
+function onRefetch() {
+  selected.value = [];
+  refetch();
+}
 </script>
 
 <template>
@@ -28,7 +32,8 @@ const onSelect = onSelectById(selected);
     <UDashboardPanel grow>
       <UDashboardNavbar :title="$t('pages.admin.users.index.title')" :badge="total">
         <template #right>
-          <AdminUsersBulkActions :users="selected" />
+          <AdminUsersDeleteButton :users="selected" @success="onRefetch" />
+          <AdminUsersCreateButton />
         </template>
       </UDashboardNavbar>
       <UDashboardToolbar>
