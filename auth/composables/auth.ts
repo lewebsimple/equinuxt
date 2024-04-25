@@ -37,6 +37,7 @@ export function useAuth() {
     await $fetch("/api/auth/logout", { method: "POST" });
     await navigateTo(localePath("/"));
     authUser.value = null;
+    location.reload();
   }
 
   return { authUser, isAuthenticated, hasUserRole, login, logout };
