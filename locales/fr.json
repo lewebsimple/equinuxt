@@ -16,9 +16,16 @@
     }
   },
   "composables": {
+    "userCreate": {
+      "success": "Utilisateur créé avec succès."
+    },
     "userDeleteMany": {
       "description": "Cette action est irréversible. Êtes-vous certain de vouloir procéder?",
+      "success": "Utilisateur supprimé avec succès. | {count} utilisateurs supprimés avec succès.",
       "title": "Supprimer l'utilisateur | Supprimer {count} utilisateurs"
+    },
+    "userUpdate": {
+      "success": "Utilisateur mis à jour avec succès."
     }
   },
   "enums": {
