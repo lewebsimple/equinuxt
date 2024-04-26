@@ -4,7 +4,16 @@ const emit = defineEmits<{ refetch: [] }>();
 
 const { userDeleteMany } = useUserMutations();
 
+const showUserEditModal = ref(false);
+
 const items = [
+  [
+    {
+      label: $t("ui.edit"),
+      icon: "i-heroicons-pencil",
+      click: () => (showUserEditModal.value = true),
+    },
+  ],
   [
     {
       label: $t("ui.delete"),
@@ -21,4 +30,7 @@ const items = [
   <UDropdown :items="items" @click.stop>
     <UButton color="gray" variant="ghost" icon="i-heroicons-ellipsis-vertical" />
   </UDropdown>
+  <UDashboardModal v-model="showUserEditModal" title="Edit User">
+    <AdminUserForm :user="user" @close="showUserEditModal = false" />
+  </UDashboardModal>
 </template>
