@@ -34,11 +34,15 @@ export const userPrismaObject = builder.prismaObject("User", {
 // User filters input
 export const userFiltersInput = builder.inputType("UserFiltersInput", {
   fields: (t) => ({
+    search: t.field({ type: "String", required: false }),
     role: t.field({ type: userRoleEnum, required: false }),
   }),
 });
 function userFiltersWhere(filters: UserFiltersInput) {
   const where: Prisma.UserWhereInput = {};
+  if (filters.search) {
+    where.OR = [{ email: { contains: filters.search } }, { profile: { firstName: { contains: filters.search } } }, { profile: { lastName: { contains: filters.search } } }];
+  }
   if (filters.role) {
     where.role = filters.role;
   }

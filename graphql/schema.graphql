@@ -57,6 +57,7 @@ input UserCreateProfileRelationInput {
 
 input UserFiltersInput {
   role: UserRoleEnum
+  search: String
 }
 
 type UserPaginated implements Pagination {

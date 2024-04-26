@@ -61,7 +61,7 @@ export async function useUserCurrent() {
 
 // Find many users
 export async function useUserFindMany() {
-  const filters = ref<UserFiltersInput>({ role: null });
+  const filters = ref<UserFiltersInput>({ search: "", role: null });
   const sort = ref<UserSortInput>({ column: UserSortColumn.FullName, direction: SortOrderEnum.Asc });
   const pagination = ref<PaginationInput>({ skip: 0, take: 10 });
   watch([filters, sort], () => (pagination.value.skip = 0));

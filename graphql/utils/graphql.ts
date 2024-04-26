@@ -98,6 +98,7 @@ export type UserCreateProfileRelationInput = {
 
 export type UserFiltersInput = {
   role?: InputMaybe<UserRoleEnum>;
+  search?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type UserPaginated = Pagination & {

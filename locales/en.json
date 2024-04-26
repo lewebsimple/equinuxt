@@ -10,6 +10,9 @@
     },
     "AppSidebarUserDropdown": {
       "loggedInAs": "Logged in as"
+    },
+    "SearchInput": {
+      "placeholder": "Search..."
     }
   },
   "composables": {

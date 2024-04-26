@@ -4,6 +4,7 @@ const roles = useUserRoles();
 </script>
 
 <template>
+  <SearchInput v-model="filters.search" />
   <USelect
     v-model="filters.role"
     :options="roles"
