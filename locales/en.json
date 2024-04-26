@@ -66,9 +66,7 @@
         "title": "Dashboard"
       },
       "users": {
-        "index": {
-          "title": "Users"
-        }
+        "title": "Users"
       }
     },
     "auth": {

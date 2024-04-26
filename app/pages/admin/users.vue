@@ -1,6 +1,6 @@
 <script setup lang="ts">
 definePageMeta({ layout: "admin", middleware: "has-user-role", hasUserRole: "Administrator" });
-useHead({ title: $t("pages.admin.users.index.title") });
+useHead({ title: $t("pages.admin.users.title") });
 const { filters, sort, users, fetching, refetch, total, page, pageCount, showPagination } = await useUserFindMany();
 const columns = [
   {
@@ -20,6 +20,7 @@ const columns = [
   },
   {
     key: "actions",
+    class: "w-0",
   },
 ];
 const selected = ref<UserFragment[]>([]);
@@ -33,7 +34,7 @@ function onRefetch() {
 <template>
   <UDashboardPage>
     <UDashboardPanel grow>
-      <UDashboardNavbar :title="$t('pages.admin.users.index.title')" :badge="total">
+      <UDashboardNavbar :title="$t('pages.admin.users.title')" :badge="total">
         <template #right>
           <AdminUsersDeleteButton :users="selected" @refetch="onRefetch" />
           <AdminUsersCreateButton />

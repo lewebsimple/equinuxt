@@ -12,7 +12,7 @@ const links = computed(() => [
     ? [
         {
           id: "users",
-          label: $t("pages.admin.users.index.title"),
+          label: $t("pages.admin.users.title"),
           icon: "i-heroicons-user-group",
           to: localePath("/admin/users"),
         },

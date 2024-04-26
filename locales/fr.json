@@ -66,9 +66,7 @@
         "title": "Tableau de bord"
       },
       "users": {
-        "index": {
-          "title": "Utilisateurs"
-        }
+        "title": "Utilisateurs"
       }
     },
     "auth": {
