@@ -9,5 +9,8 @@ export default defineAppConfig({
         },
       },
     },
+    pagination: {
+      wrapper: "justify-center",
+    },
   },
 });

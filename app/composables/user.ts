@@ -113,7 +113,7 @@ export function useUserMutations() {
       throw new Error(urqlErrorMessage(error));
     }
     if (!result?.userCreate) throw new Error(t("errors.generic"));
-    notificationSuccess({ description: t("composables.userCreate.success", { email: result.userCreate.email }) });
+    notificationSuccess({ description: t("composables.userCreate.success") });
     return result.userCreate;
   }
 
@@ -150,7 +150,7 @@ export function useUserMutations() {
     return new Promise<number>((resolve) => {
       modal.open(AdminConfirmModal, {
         title: t("composables.userDeleteMany.title", { count: userIds.length }),
-        description: t("composables.userDeleteMany.description"),
+        description: t("ui.irreversibleAction"),
         variant: "danger",
         onConfirm: async () => {
           const { data: result, error } = await executeUserDeleteMany({ userIds });

@@ -41,7 +41,7 @@ const items = [
     </template>
     <template #account>
       <div class="max-w-full text-left">
-        <p>{{ $t("components.AppSidebarUserDropdown.loggedInAs") }}</p>
+        <p>{{ $t("components.AdminSidebarUserDropdown.loggedInAs") }}</p>
         <p class="truncate font-medium text-gray-900 dark:text-white">{{ user.email }}</p>
       </div>
     </template>

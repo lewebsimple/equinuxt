@@ -1,5 +1,11 @@
 {
   "components": {
+    "AdminSidebarUserDropdown": {
+      "loggedInAs": "Logged in as"
+    },
+    "AdminUserActions": {
+      "modify": "Modify user"
+    },
     "AdminUsersFilters": {
       "role": {
         "placeholder": "Filter by role"
@@ -7,9 +13,6 @@
     },
     "AppFooter": {
       "allRightsReserved": "All rights reserved."
-    },
-    "AppSidebarUserDropdown": {
-      "loggedInAs": "Logged in as"
     },
     "SearchInput": {
       "placeholder": "Search..."
@@ -95,8 +98,9 @@
     "confirm": "Confirm",
     "create": "Create",
     "delete": "Delete",
-    "edit": "Edit",
     "goBackHome": "Go back home",
+    "irreversibleAction": "This action is irreversible. Are you sure you want to proceed ?",
+    "modify": "Modify",
     "save": "Save"
   }
 }

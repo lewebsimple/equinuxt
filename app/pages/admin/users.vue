@@ -56,6 +56,7 @@ function onRefetch() {
           <AdminUserActions :user="row" @refetch="onRefetch" />
         </template>
       </UTable>
+      <div class="flex-1" />
       <UPagination v-if="showPagination" v-model="page" :page-count="pageCount" :total="total" />
     </UDashboardPanel>
   </UDashboardPage>
