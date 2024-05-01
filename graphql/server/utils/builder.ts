@@ -3,7 +3,6 @@ import SchemaBuilder from "@pothos/core";
 import PrismaPlugin from "@pothos/plugin-prisma";
 import type PrismaTypes from "@pothos/plugin-prisma/generated";
 import PrismaUtils from "@pothos/plugin-prisma-utils";
-import RelayPlugin from "@pothos/plugin-relay";
 import ScopeAuthPlugin from "@pothos/plugin-scope-auth";
 import SimpleObjectsPlugin from "@pothos/plugin-simple-objects";
 import { Prisma } from "@prisma/client";
@@ -20,7 +19,6 @@ export const builder = new SchemaBuilder<{
     ScopeAuthPlugin, // This plugin should always come first
     PrismaPlugin,
     PrismaUtils,
-    RelayPlugin,
     SimpleObjectsPlugin,
   ],
   authScopes,
@@ -31,14 +29,5 @@ export const builder = new SchemaBuilder<{
     exposeDescriptions: true,
     filterConnectionTotalCount: true,
     onUnusedQuery: process.env.NODE_ENV === "production" ? null : "warn",
-  },
-  relayOptions: {
-    clientMutationId: "omit",
-    cursorType: "String",
-    idFieldName: "globalId",
-    decodeGlobalID,
-    encodeGlobalID,
-    nodeQueryOptions: false,
-    nodesQueryOptions: false,
   },
 });
