@@ -86,8 +86,7 @@ export async function useUserFindMany() {
     set: (value) => (pagination.value.skip = (value - 1) * pagination.value.take),
   });
   const pageCount = computed<number>(() => pagination.value.take);
-  const showPagination = computed<boolean>(() => total.value > pagination.value.take);
-  return { filters, sort, users, fetching, refetch, total, page, pageCount, showPagination };
+  return { filters, sort, users, fetching, refetch, total, page, pageCount };
 }
 
 // User mutations

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 definePageMeta({ layout: "admin", middleware: "has-user-role", hasUserRole: "Administrator" });
 useHead({ title: $t("pages.admin.users.title") });
-const { filters, sort, users, fetching, refetch, total, page, pageCount, showPagination } = await useUserFindMany();
+const { filters, sort, users, fetching, refetch, total, page, pageCount } = await useUserFindMany();
 const columns = [
   {
     key: "fullName",
@@ -57,7 +57,7 @@ function onRefetch() {
         </template>
       </UTable>
       <div class="flex-1" />
-      <UPagination v-if="showPagination" v-model="page" :page-count="pageCount" :total="total" />
+      <AdminPaginationToolbar v-model="page" :total="total" :page-count="pageCount" />
     </UDashboardPanel>
   </UDashboardPage>
 </template>
