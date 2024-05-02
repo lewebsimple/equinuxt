@@ -23,7 +23,6 @@
       "success": "User created for successfully."
     },
     "userDeleteMany": {
-      "description": "This action is irreversible. Are you sure you want to proceed ?",
       "success": "User deleted successfully. | {count} users deleted successfully.",
       "title": "Delete user | Delete {count} users"
     },
