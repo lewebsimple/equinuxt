@@ -29,6 +29,9 @@ function onRefetch() {
   selected.value = [];
   refetch();
 }
+function onUpdateSort(newSort: UserSortInput) {
+  Object.assign(sort, newSort);
+}
 </script>
 
 <template>
@@ -44,8 +47,11 @@ function onRefetch() {
         <template #left>
           <AdminUsersFilters v-model="filters" />
         </template>
+        <template #right>
+          <UButton color="gray" variant="ghost" icon="i-heroicons-arrow-path" @click="onRefetch" />
+        </template>
       </UDashboardToolbar>
-      <UTable v-model="selected" v-model:sort="sort" :columns="columns" :rows="users" :loading="fetching" sort-mode="manual" @select="onSelect">
+      <UTable v-model="selected" :sort="sort" :columns="columns" :rows="users" :loading="fetching" sort-mode="manual" @select="onSelect" @update:sort="onUpdateSort">
         <template #fullName-data="{ row }">
           <span class="text-gray-900 dark:text-white font-medium">{{ row.fullName }}</span>
         </template>

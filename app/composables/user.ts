@@ -61,10 +61,10 @@ export async function useUserCurrent() {
 
 // Find many users
 export async function useUserFindMany() {
-  const filters = ref<UserFiltersInput>({ search: "", role: null });
-  const sort = ref<UserSortInput>({ column: UserSortColumn.FullName, direction: SortOrderEnum.Asc });
-  const pagination = ref<PaginationInput>({ skip: 0, take: 10 });
-  watch([filters, sort], () => (pagination.value.skip = 0));
+  const filters = useUrlParams<UserFiltersInput>({ search: "", role: null });
+  const sort = useUrlParams<UserSortInput>({ column: UserSortColumn.FullName, direction: SortOrderEnum.Asc });
+  const pagination = useUrlParams<PaginationInput>({ skip: 0, take: 10 });
+  watch([filters, sort], () => setTimeout(() => (pagination.skip = 0), 150));
   const { data, fetching, executeQuery } = await useQuery<UserFindManyQuery>({
     query: graphql(`
       query UserFindMany($filters: UserFiltersInput!, $sort: UserSortInput!, $pagination: PaginationInput!) {
@@ -82,10 +82,10 @@ export async function useUserFindMany() {
   const refetch = () => executeQuery({ requestPolicy: "network-only" });
   const total = computed<number>(() => data.value?.userFindMany.total || 0);
   const page = computed<number>({
-    get: () => pagination.value.skip / pagination.value.take + 1,
-    set: (value) => (pagination.value.skip = (value - 1) * pagination.value.take),
+    get: () => pagination.skip / pagination.take + 1,
+    set: (value) => (pagination.skip = (value - 1) * pagination.take),
   });
-  const pageCount = computed<number>(() => pagination.value.take);
+  const pageCount = computed<number>(() => pagination.take);
   return { filters, sort, users, fetching, refetch, total, page, pageCount };
 }
 
@@ -156,7 +156,7 @@ export function useUserMutations() {
           if (error) {
             throw new Error(urqlErrorMessage(error));
           }
-          if (!result?.userDeleteMany) throw new Error(t("errors.generic"));
+          if (result?.userDeleteMany === undefined) throw new Error(t("errors.generic"));
           modal.close();
           notificationSuccess({ description: t("composables.userDeleteMany.success", { count: result.userDeleteMany }) });
           resolve(result.userDeleteMany);

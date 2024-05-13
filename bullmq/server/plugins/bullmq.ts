@@ -21,7 +21,7 @@ export default defineNitroPlugin(async (nitroApp) => {
   // Purge queues if needed
   Object.entries(<Tasks>tasks).forEach(async ([name, { queue, options }]) => {
     if (!options?.purgeQueue) return;
-    logger.info(`Purging queue ${name}`);
+    logger.info(`Purging ${name} queue`);
     await queue.obliterate({ force: true });
   });
 
