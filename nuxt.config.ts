@@ -6,7 +6,6 @@ export default defineNuxtConfig({
     baseUrl: process.env.NUXT_I18N_BASE_URL || "http://localhost:3000",
     defaultLocale: "fr",
     langDir: "locales",
-    lazy: true,
     locales: [
       { code: "en", iso: "en-CA", name: "English", files: ["en.json"] },
       { code: "fr", iso: "fr-CA", name: "Français", files: ["fr.json"] },
