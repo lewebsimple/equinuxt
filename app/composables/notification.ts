@@ -1,3 +1,4 @@
+import { useSubscription } from "@urql/vue";
 import defu from "defu";
 
 import { type Notification } from "#ui/types";
@@ -31,4 +32,29 @@ export function useNotification() {
   }
 
   return { notificationError, notificationSuccess };
+}
+
+export function useNotificationListen() {
+  const toast = useToast();
+  const defaults: Partial<Notification> = {
+    color: "primary",
+    icon: undefined,
+    timeout: 2000,
+  };
+  useSubscription(
+    {
+      query: graphql(`
+        subscription NotificationListen {
+          notificationListen {
+            title
+            description
+            icon
+            timeout
+            color
+          }
+        }
+      `),
+    },
+    (_previous: any, data) => toast.add(<Notification>defu(data.notificationListen, defaults)),
+  );
 }

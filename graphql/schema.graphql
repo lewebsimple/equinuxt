@@ -10,6 +10,14 @@ type Mutation {
   userUpdate(data: UserUpdateInput!, userId: String!): User
 }
 
+type Notification {
+  color: String
+  description: String
+  icon: String
+  timeout: Int
+  title: String!
+}
+
 interface Pagination {
   total: Int!
 }
@@ -32,6 +40,7 @@ enum SortOrderEnum {
 
 type Subscription {
   healthcheck: String!
+  notificationListen: Notification!
 }
 
 scalar Upload

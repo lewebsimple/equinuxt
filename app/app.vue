@@ -11,6 +11,8 @@ useHead({
   meta: [{ key: "theme-color", name: "theme-color", content: color }],
   titleTemplate: (title) => (title ? `${title} | ${description}` : description),
 });
+
+useNotificationListen();
 </script>
 
 <template>

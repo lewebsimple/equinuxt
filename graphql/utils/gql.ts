@@ -13,6 +13,7 @@ import type { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-
  * Therefore it is highly recommended to use the babel or swc plugin for production.
  */
 const documents = {
+    "\n        subscription NotificationListen {\n          notificationListen {\n            title\n            description\n            icon\n            timeout\n            color\n          }\n        }\n      ": types.NotificationListenDocument,
     "\n  fragment User on User {\n    id\n    email\n    role\n    fullName\n    profile {\n      firstName\n      lastName\n    }\n  }\n": types.UserFragmentDoc,
     "\n      query UserCurrent {\n        userCurrent {\n          ...User\n        }\n      }\n    ": types.UserCurrentDocument,
     "\n      query UserFindMany($filters: UserFiltersInput!, $sort: UserSortInput!, $pagination: PaginationInput!) {\n        userFindMany(filters: $filters, sort: $sort, pagination: $pagination) {\n          total\n          users {\n            ...User\n          }\n        }\n      }\n    ": types.UserFindManyDocument,
@@ -38,6 +39,10 @@ const documents = {
  */
 export function graphql(source: string): unknown;
 
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n        subscription NotificationListen {\n          notificationListen {\n            title\n            description\n            icon\n            timeout\n            color\n          }\n        }\n      "): (typeof documents)["\n        subscription NotificationListen {\n          notificationListen {\n            title\n            description\n            icon\n            timeout\n            color\n          }\n        }\n      "];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
