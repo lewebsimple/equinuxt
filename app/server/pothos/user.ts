@@ -158,14 +158,17 @@ export const userMutations = builder.mutationFields((t) => ({
     },
     resolve: async (query, _root, { data }, { prisma, t }) => {
       try {
-        return await prisma.user.create({ ...query, data: { ...data, id: authGenerateUserId(), password: await authHashPassword(data.password) } });
+        const user = await prisma.user.create({ ...query, data: { ...data, id: authGenerateUserId(), password: await authHashPassword(data.password) } });
+        pubsub.publish("notification", { title: t("ui.success"), description: t("composables.userCreate.success"), color: "green", icon: "i-heroicons-check-circle" });
+        return user;
       } catch (error) {
-        if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === "P2002") throw new Error(t("errors.user.alreadyExists"));
-        throw error;
+        const message = error instanceof Prisma.PrismaClientKnownRequestError && error.code === "P2002" ? t("errors.user.alreadyExists") : t("errors.generic");
+        throw new Error(message);
       }
     },
     authScopes: { hasUserRole: "Administrator" },
   }),
+
   // Update user
   userUpdate: t.prismaField({
     type: "User",
@@ -177,23 +180,36 @@ export const userMutations = builder.mutationFields((t) => ({
     resolve: async (query, _root, { userId, data }, { prisma, t }) => {
       if (data.password) data.password = await authHashPassword(<string>data.password);
       try {
-        return await prisma.user.update({ ...query, where: { id: userId }, data });
+        const user = await prisma.user.update({ ...query, where: { id: userId }, data });
+        pubsub.publish("notification", { title: t("ui.success"), description: t("composables.userUpdate.success"), color: "green", icon: "i-heroicons-check-circle" });
+        return user;
       } catch (error) {
-        if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === "P2002") throw new Error(t("errors.user.alreadyExists"));
-        throw error;
+        const message = error instanceof Prisma.PrismaClientKnownRequestError && error.code === "P2002" ? t("errors.user.alreadyExists") : t("errors.generic");
+        throw new Error(message);
       }
     },
     authScopes: { hasUserRole: "Administrator" },
   }),
+
   // Delete users
   userDeleteMany: t.field({
     type: "Int",
     args: {
       userIds: t.arg.stringList({ required: true }),
     },
-    resolve: async (_root, { userIds }, { prisma }) => {
-      const { count } = await prisma.userProfile.deleteMany({ where: { user: { id: { in: userIds } } } });
-      return count;
+    resolve: async (_root, { userIds }, { prisma, t }) => {
+      try {
+        const { count } = await prisma.userProfile.deleteMany({ where: { user: { id: { in: userIds } } } });
+        pubsub.publish("notification", {
+          title: t("ui.success"),
+          description: t("composables.userDeleteMany.success", { count }),
+          color: "green",
+          icon: "i-heroicons-check-circle",
+        });
+        return count;
+      } catch (error) {
+        throw new Error(t("errors.generic"));
+      }
     },
     authScopes: { hasUserRole: "Administrator" },
   }),

@@ -100,6 +100,7 @@
     "goBackHome": "Retourner à l'accueil",
     "irreversibleAction": "Cette action est irréversible. Êtes-vous certain de vouloir procéder?",
     "modify": "Modifier",
-    "save": "Enregistrer"
+    "save": "Enregistrer",
+    "success": "Succès"
   }
 }

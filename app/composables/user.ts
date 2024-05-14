@@ -93,7 +93,6 @@ export async function useUserFindMany() {
 export function useUserMutations() {
   const { t } = useI18n();
   const modal = useModal();
-  const { notificationSuccess } = useNotification();
 
   // Create user
   const { executeMutation: executeUserCreate } = useMutation(
@@ -112,7 +111,6 @@ export function useUserMutations() {
       throw new Error(urqlErrorMessage(error));
     }
     if (!result?.userCreate) throw new Error(t("errors.generic"));
-    notificationSuccess({ description: t("composables.userCreate.success") });
     return result.userCreate;
   }
 
@@ -133,7 +131,6 @@ export function useUserMutations() {
       throw new Error(urqlErrorMessage(error));
     }
     if (!result?.userUpdate) throw new Error(t("errors.generic"));
-    notificationSuccess({ description: t("composables.userUpdate.success", { email: result.userUpdate.email }) });
     return result.userUpdate;
   }
 
@@ -158,7 +155,6 @@ export function useUserMutations() {
           }
           if (result?.userDeleteMany === undefined) throw new Error(t("errors.generic"));
           modal.close();
-          notificationSuccess({ description: t("composables.userDeleteMany.success", { count: result.userDeleteMany }) });
           resolve(result.userDeleteMany);
         },
         onCancel: () => {
